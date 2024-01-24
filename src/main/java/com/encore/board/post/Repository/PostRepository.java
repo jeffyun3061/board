@@ -1,7 +1,7 @@
-package com.encore.board.author.post.Repository;
+package com.encore.board.post.Repository;
 
 
-import com.encore.board.author.post.Domain.Post;
+import com.encore.board.post.Domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    List<Post> findAllByOrderByCreaterdTimeDesc();
+    List<Post> findAllByOrderByCreatedTimeDesc();
 }

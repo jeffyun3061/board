@@ -1,9 +1,9 @@
-package com.encore.board.author.post.Controller;
+package com.encore.board.post.Controller;
 
-import com.encore.board.author.post.Dto.PostDetailResDto;
-import com.encore.board.author.post.Dto.PostListResDto;
-import com.encore.board.author.post.Dto.PostSaveReqDto;
-import com.encore.board.author.post.Service.PostService;
+import com.encore.board.post.Dto.PostDetailResDto;
+import com.encore.board.post.Dto.PostListResDto;
+import com.encore.board.post.Dto.PostSaveReqDto;
+import com.encore.board.post.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ public class PostController {
 
     @GetMapping("/post/create")
     public String postCreate(){
-        return "post/post-create";
+        return "/post/post-create";
     }
 
     @PostMapping("/post/create")
@@ -43,12 +43,12 @@ public class PostController {
 
     @GetMapping("/post/detail/{id}")
     public String postDetail(@PathVariable Long id, Model model){
-        PostDetailResDto postDetailResDto = postService.findpostdetail(id);
+        PostDetailResDto postDetailResDto = postService.findPostDetail(id);
         model.addAttribute("post", postDetailResDto);
         return "post/post-detail";
     }
 
-    @PostMapping("/post/{id}/update")
+    @PostMapping("/post/update/{id}")
     public String postUpdate(@PathVariable Long id, PostDetailResDto postUpdateReqDto){
         postService.update(id, postUpdateReqDto);
         return "redirect:/post/detail/"+ id;

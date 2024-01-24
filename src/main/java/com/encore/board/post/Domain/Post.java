@@ -1,6 +1,7 @@
-package com.encore.board.author.post.Domain;
+package com.encore.board.post.Domain;
 
 import com.encore.board.author.Domain.Author;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,15 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
+@Builder
 public class Post {
-    public Post(String title, String contents) {
-        this.title = title;
-        this.contents = contents;
-    }
-    public void updatePost(String title, String contents){
-        this.title = title;
-        this.contents = contents;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,9 +43,8 @@ public class Post {
     @Column(columnDefinition = "TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedTime;
 
-    @Builder
-    public Post(String tilte, String contents) {
-        this.title.
-
+    public void updatePost(String title, String contents){
+        this.title = title;
+        this.contents = contents;
     }
 }

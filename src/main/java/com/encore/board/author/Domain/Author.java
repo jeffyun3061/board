@@ -1,25 +1,21 @@
-package com.encore.board.Domain;
-import com.encore.board.Dto.AuthorUpdateReqDto;
+package com.encore.board.author.Domain;
+import com.encore.board.post.Domain.Post;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
+@Builder
 public class Author {
-    public Author(String name, String email, String password){
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
 
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
@@ -37,16 +33,23 @@ public class Author {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    // author를 조회할때 post객체가 필요할시에 선언
+//    mappedBy를 연관관계의 주인이라 부르고, fk를 관리하는 변수명을 명시
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @Setter //cascade.persist를 위한 테스트
+//    author 부모 > post 자식
+    private List<Post> posts;
+
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdTime;
-
     @UpdateTimestamp
     @Column(columnDefinition = "TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedTime;
+
+    public void updateAuthor(String name, String password){
+        this.name = name;
+        this.password = password;
+    }
 }
 
-public void update(Long id, AuthorUpdateReqDto authorUpdateReqDto){
-    Author author = this. findById(id);
-    author.updateAuthor(authorUpdateReqDto.getName())
-}

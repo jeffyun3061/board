@@ -1,4 +1,4 @@
-package com.encore.board.author.post.Dto;
+package com.encore.board.post.Dto;
 
 import lombok.Data;
 
@@ -9,5 +9,4 @@ public class PostDetailResDto {
     private Long id;
     private String title;
     private String contents;
-    private LocalDateTime createdTime;
 }
