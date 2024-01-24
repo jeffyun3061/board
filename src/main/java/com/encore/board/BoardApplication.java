@@ -1,4 +1,4 @@
-package com.encore.board;
+package com.encore.board.author;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
