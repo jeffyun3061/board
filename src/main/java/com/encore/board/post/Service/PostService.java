@@ -6,8 +6,8 @@ import com.encore.board.post.Domain.Post;
 import com.encore.board.post.Dto.PostDetailResDto;
 import com.encore.board.post.Dto.PostListResDto;
 import com.encore.board.post.Dto.PostSaveReqDto;
+import com.encore.board.post.Dto.PostUpdateReqDto;
 import com.encore.board.post.Repository.PostRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +20,10 @@ public class PostService {
     private final PostRepository postRepository;
     private final AuthorRepository authorRepository;
 
+
     @Autowired
-    public PostService(PostRepository postRepository, AuthorRepository authorRepository) {
-        this.postRepository = postRepository;
+    public PostService(PostRepository postRepositry, AuthorRepository authorRepository) {
+        this.postRepository=postRepositry;
         this.authorRepository = authorRepository;
     }
 
@@ -33,17 +34,19 @@ public class PostService {
                 .contents(postSaveReqDto.getContents())
                 .author(author)
                 .build();
+//        더티체킹 테스트
         postRepository.save(post);
     }
+
 
     public List<PostListResDto> findAll(){
         List<Post> posts= postRepository.findAll();
         List<PostListResDto> postListResDtoList= new ArrayList<>();
-        for( Post p: posts){
+        for( Post post: posts){
             PostListResDto postListResDto = new PostListResDto();
-            postListResDto.setId(p.getId());
-            postListResDto.setTitle(p.getTitle());
-            postListResDto.setAuthor_email(p.getAuthor()==null?"익명":p.getAuthor().getEmail());
+            postListResDto.setId(post.getId());
+            postListResDto.setTitle(post.getTitle());
+            postListResDto.setAuthor_email(post.getAuthor()==null?"익명":post.getAuthor().getEmail());
             postListResDtoList.add(postListResDto);
         }
         return postListResDtoList;
@@ -54,7 +57,7 @@ public class PostService {
         return post;
     }
 
-    public PostDetailResDto findPostDetail(Long id) throws EntityNotFoundException {
+    public PostDetailResDto findAuthorDetail(Long id) throws EntityNotFoundException {
         Post postDetails= postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         PostDetailResDto postDetailsResDto = new PostDetailResDto();
         postDetailsResDto.setId(postDetails.getId());
@@ -70,7 +73,7 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    public void update(long id, PostDetailResDto postUpdateReqDto){
+    public void update(long id, PostUpdateReqDto postUpdateReqDto){
         Post post = this.findById(id);
         post.updatePost(postUpdateReqDto.getTitle(),postUpdateReqDto.getContents());
         postRepository.save(post);

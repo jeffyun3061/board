@@ -31,7 +31,7 @@ public class Author {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private MyRole myRole;
 
     // author를 조회할때 post객체가 필요할시에 선언
 //    mappedBy를 연관관계의 주인이라 부르고, fk를 관리하는 변수명을 명시

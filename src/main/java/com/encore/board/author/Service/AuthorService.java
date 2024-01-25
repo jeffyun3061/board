@@ -2,7 +2,7 @@ package com.encore.board.author.Service;
 
 
 import com.encore.board.author.Domain.Author;
-import com.encore.board.author.Domain.Role;
+import com.encore.board.author.Domain.MyRole;
 import com.encore.board.author.Dto.AuthorDetailResDto;
 import com.encore.board.author.Dto.AuthorListResDto;
 import com.encore.board.author.Dto.AuthorSaveReqDto;
@@ -26,14 +26,14 @@ public class AuthorService {
     public void save(AuthorSaveReqDto authorSaveReqDto) {
         //일반 생성자 방식
         //Author author = new Author(authorSaveReqDto.getName(), authorSaveReqDto.getEmail(), authorSaveReqDto.getPassword(), role);
-        Role role = authorSaveReqDto.getRole() == "ADMIN" ? Role.ADMIN : Role.USER;
+        MyRole role = authorSaveReqDto.getRole() == "ADMIN" ? MyRole.ADMIN : MyRole.USER;
         //빌더패턴
         // .build() : 최종적으로 완성시키는 단계
         Author author = Author.builder()
                 .email(authorSaveReqDto.getEmail())
                 .name(authorSaveReqDto.getName())
                 .password(authorSaveReqDto.getPassword())
-                .role(role)
+                .myRole(role)
                 .build();
 
         //cascade.persist 테스트
@@ -70,7 +70,7 @@ public class AuthorService {
     public AuthorDetailResDto findAuthorDetail(Long id) throws EntityNotFoundException {
         Author author = this.findById(id);
         String role = null;
-        if(author.getRole() == null || author.getRole().equals(Role.USER)){
+        if(author.getMyRole() == null || author.getMyRole().equals(MyRole.USER)){
             role = "일반유저";
         }else{
             role = "관리자";

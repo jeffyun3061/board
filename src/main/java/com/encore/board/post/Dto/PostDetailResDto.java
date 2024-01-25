@@ -9,4 +9,5 @@ public class PostDetailResDto {
     private Long id;
     private String title;
     private String contents;
+    private LocalDateTime createdTime;
 }

@@ -30,7 +30,7 @@ public class Post {
 
 //    author_id는 DB의 컬럼명, 별다른 옵션 없을시 author의 pk에 fk가 설정
 //    post객체가
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
 //      @JoinColumn(nullable=false, name="author_email", referenceColumnName="email")
     private Author author;
