@@ -50,7 +50,7 @@ public class PostController {
         return "post/post-detail";
     }
 
-    @PostMapping("/post/{id}/update")
+    @PostMapping("/post/update/{id}")
     public String postUpdate(@PathVariable Long id, PostUpdateReqDto postUpdateReqDto){
         postService.update(id, postUpdateReqDto);
         return "redirect:/post/detail/"+ id;
