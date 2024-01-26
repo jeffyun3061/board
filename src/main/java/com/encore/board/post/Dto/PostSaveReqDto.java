@@ -7,4 +7,6 @@ public class PostSaveReqDto {
     private String title;
     private String email;
     private String contents;
+    private String appointment;
+    private String appointmentTime;
 }

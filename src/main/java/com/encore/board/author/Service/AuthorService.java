@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthorService {
@@ -24,6 +25,7 @@ public class AuthorService {
     }
 
     public void save(AuthorSaveReqDto authorSaveReqDto) {
+        if (authorRepository.findByEmail((authorSaveReqDto.getEmail())).isPresent())throw new IllegalArgumentException("중복이메일");
         //일반 생성자 방식
         //Author author = new Author(authorSaveReqDto.getName(), authorSaveReqDto.getEmail(), authorSaveReqDto.getPassword(), role);
         MyRole role = authorSaveReqDto.getRole() == "ADMIN" ? MyRole.ADMIN : MyRole.USER;

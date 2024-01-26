@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @Getter
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 public class Post {
 
     @Id
@@ -28,6 +28,8 @@ public class Post {
     @Column(nullable = false, length = 3000)
     private String contents;
 
+    private String appointment;
+    private LocalDateTime appointmentTime;
 //    author_id는 DB의 컬럼명, 별다른 옵션 없을시 author의 pk에 fk가 설정
 //    post객체가
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,5 +48,8 @@ public class Post {
     public void updatePost(String title, String contents){
         this.title = title;
         this.contents = contents;
+    }
+    public void updateAppointment(String appointment){
+        this.appointment = appointment;
     }
 }
