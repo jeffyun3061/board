@@ -65,7 +65,7 @@ public class AuthorService {
     }
 
     public Author findById(Long id) throws EntityNotFoundException {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("검색하신 ID의 Member가 없습니다."));
+        Author author = authorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("author not found"));
         return author;
     }
 

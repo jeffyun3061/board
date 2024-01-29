@@ -6,6 +6,7 @@ import com.encore.board.post.Dto.PostListResDto;
 import com.encore.board.post.Dto.PostSaveReqDto;
 import com.encore.board.post.Dto.PostUpdateReqDto;
 import com.encore.board.post.Service.PostService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class PostController {
     private final PostService postService;
     @Autowired
@@ -41,6 +43,7 @@ public class PostController {
             return "redirect:/post/list";
         }catch (IllegalArgumentException e){
             model.addAttribute("errorMessage", e.getMessage());
+            log.error(e.getMessage());
             return  "post/post-create";
         }
     }
@@ -78,6 +81,8 @@ public class PostController {
     @GetMapping("/post/delete/{id}")
     public String postDelete(@PathVariable Long id){
         postService.delete(id);
+
         return "redirect:/post/list";
+
     }
 }
